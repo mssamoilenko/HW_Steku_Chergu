@@ -97,3 +97,144 @@ def main():
             print("Невірний вибір. Спробуйте ще раз.")
 
 main()
+
+#task2
+class StringStack:
+    def __init__(self, size):
+        self.size = size
+        self.stack = []
+
+    def push(self, string):
+        if not self.is_full():
+            self.stack.append(string)
+            print(f"Рядок '{string}' додано в стек.")
+        else:
+            print("Стек переповнений!")
+
+    def pop(self):
+        if not self.is_empty():
+            return self.stack.pop()
+        else:
+            print("Стек порожній!")
+
+    def count(self):
+        return len(self.stack)
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    def is_full(self):
+        return len(self.stack) >= self.size
+
+    def clear(self):
+        self.stack.clear()
+
+    def peek(self):
+        if not self.is_empty():
+            return self.stack[-1]
+
+class StringQueue:
+    def __init__(self, size):
+        self.size = size
+        self.queue = []
+
+    def enqueue(self, string):
+        if not self.is_full():
+            self.queue.append(string)
+            print(f"Рядок '{string}' додано в чергу.")
+        else:
+            print("Черга переповнена!")
+
+    def dequeue(self):
+        if not self.is_empty():
+            return self.queue.pop(0)
+        else:
+            print("Черга порожня!")
+
+    def count(self):
+        return len(self.queue)
+
+    def is_empty(self):
+        return len(self.queue) == 0
+
+    def is_full(self):
+        return len(self.queue) >= self.size
+
+    def clear(self):
+        self.queue.clear()
+
+    def peek(self):
+        if not self.is_empty():
+            return self.queue[0]
+
+def main():
+    structure_type = input("Виберіть структуру даних (1 - Стек, 2 - Черга): ")
+
+    if structure_type == '1':
+        structure_size = int(input("Введіть максимальний розмір стека: "))
+        string_stack = StringStack(structure_size)
+        current_structure = string_stack
+        current_structure_name = "стек"
+    elif structure_type == '2':
+        structure_size = int(input("Введіть максимальний розмір черги: "))
+        string_queue = StringQueue(structure_size)
+        current_structure = string_queue
+        current_structure_name = "черга"
+    else:
+        print("Невірний вибір.")
+        return
+
+    while True:
+        print(f"\nМеню для роботи з {current_structure_name}:")
+        print("1. Додати рядок в структуру")
+        print("2. Витягнути рядок з структури")
+        print("3. Підрахувати кількість рядків у структурі")
+        print("4. Перевірити чи порожня структура")
+        print("5. Перевірити чи повна структура")
+        print("6. Очищення структури")
+        print("7. Подивитися верхній або перший рядок без витягування")
+        print("8. Вихід")
+
+        choice = input("Виберіть опцію: ")
+
+        if choice == '1':
+            string_value = input("Введіть рядок: ")
+            if current_structure_name == "стек":
+                current_structure.push(string_value)
+            else:
+                current_structure.enqueue(string_value)
+        elif choice == '2':
+            if current_structure_name == "стек":
+                popped_value = current_structure.pop()
+                if popped_value is not None:
+                    print(f"Витягнуто рядок: {popped_value}")
+            else:
+                dequeued_value = current_structure.dequeue()
+                if dequeued_value is not None:
+                    print(f"Витягнуто рядок: {dequeued_value}")
+        elif choice == '3':
+            count = current_structure.count()
+            print(f"Кількість рядків у структурі: {count}")
+        elif choice == '4':
+            empty_status = "порожня" if current_structure.is_empty() else "не порожня"
+            print(f"Структура {empty_status}.")
+        elif choice == '5':
+            full_status = "повна" if current_structure.is_full() else "не повна"
+            print(f"Структура {full_status}.")
+        elif choice == '6':
+            current_structure.clear()
+            print("Структура очищена.")
+        elif choice == '7':
+            if current_structure_name == "стек":
+                top_value = current_structure.peek()
+            else:
+                top_value = current_structure.peek()
+
+            if top_value is not None:
+                print(f"Верхній або перший рядок у структурі: {top_value}")
+        elif choice == '8':
+            break
+        else:
+            print("Невірний вибір. Спробуйте ще раз.")
+
+main()
